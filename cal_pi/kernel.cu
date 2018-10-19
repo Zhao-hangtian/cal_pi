@@ -56,14 +56,14 @@ int main(void) {
 	pi_by_cpu(a, b, &integral);
 	clockEnd = clock();
 	duration = (double)1000 * (clockEnd - clockBegin) / CLOCKS_PER_SEC;
-	printf("CPU Result: %.20lf\n", integral);
+	printf("CPU Result: %.11lf\n", integral);
 	printf("CPU Elapsed time: %.6lfms\n\n", duration);
 
 	// Using CUDA device to calculate pi
 	cudaEvent_t start, stop;
-	cudaEventCreate(&start); //创建event
-	cudaEventCreate(&stop);  //创建event
-	cudaEventRecord(start, 0);  //记录当前时间
+	cudaEventCreate(&start); //event
+	cudaEventCreate(&stop);  //event
+	cudaEventRecord(start, 0);  //record time
 	float tm;
 
 	dim3 dimGrid(NUM_BLOCK, 1, 1);  // Grid dimensions
@@ -85,7 +85,7 @@ int main(void) {
 	pi *= step;
 
 	// Print results
-	printf("GPU Result: %.20lf\n", pi);
+	printf("GPU Result: %.11lf\n", pi);
 
 	cudaEventRecord(stop, 0);
 	cudaEventSynchronize(stop);
